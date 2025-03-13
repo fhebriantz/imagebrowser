@@ -35,37 +35,36 @@ public/
 Pastikan kamu sudah menginstall **Node.js**, lalu jalankan:
 
 ```sh
-npm install
+npm install```
 
 2️⃣ Menjalankan Server
 Jalankan dengan:
 
-node server.js
+```node server.js```
 
 Atau cukup klik dua kali run.bat untuk menjalankan server otomatis.
 
 3️⃣ Akses di Browser
 Buka browser dan akses:
 
-http://localhost:3000
+```http://localhost:3000```
 
 Atau cukup klik dua kali run.bat untuk menjalankan server otomatis.
 
 
 🛠 Fitur
-✔ Pilih Folder → Menampilkan gambar dari folder tertentu.
+```✔ Pilih Folder → Menampilkan gambar dari folder tertentu.
 ✔ Filter Range → Memfilter gambar berdasarkan nomor (1-99, 100-199, dst).
 ✔ Klik Thumbnail → Menampilkan gambar ukuran besar dalam modal.
-✔ Gambar Tidak Ada? → Gambar yang hilang otomatis dilewati.
+✔ Gambar Tidak Ada? → Gambar yang hilang otomatis dilewati.```
 
 ❓ FAQ (Pertanyaan Umum)
 🔹 Gambar tidak muncul?
-✔ Pastikan nama file sesuai format: image_{nomor}_0.jpg.
+```✔ Pastikan nama file sesuai format: image_{nomor}_0.jpg.
 ✔ Periksa apakah folder gambar ada di public/images/.
-✔ Pastikan server sudah dijalankan dengan node server.js.
+✔ Pastikan server sudah dijalankan dengan node server.js.```
 
 🔹 Bagaimana cara menambahkan folder baru?
-Buat folder baru di public/images/.
+```Buat folder baru di public/images/.
 Tambahkan gambar dengan format image_{nomor}_0.jpg.
-Refresh browser → folder otomatis terbaca! 🚀
-```
+Refresh browser → folder otomatis terbaca! 🚀```
