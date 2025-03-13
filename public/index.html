@@ -43,7 +43,29 @@
             const folders = await response.json();
             const select = document.getElementById("folderSelect");
             select.innerHTML = folders.map(folder => `<option value="${folder}">${folder}</option>`).join('');
-            loadImages(); // Load gambar setelah folder dimuat
+            fetchFileRange(); // Ambil jumlah file setelah folder dimuat
+        }
+
+        async function fetchFileRange() {
+            const folder = document.getElementById("folderSelect").value;
+            if (!folder) return;
+
+            const response = await fetch(`/api/files/${folder}`);
+            const data = await response.json();
+            const maxNumber = data.maxNumber;
+
+            const selectRange = document.getElementById("rangeSelect");
+            selectRange.innerHTML = ""; // Hapus opsi lama
+
+            for (let i = 1; i <= maxNumber; i += 100) {
+                let maxRange = Math.min(i + 99, maxNumber);
+                let option = document.createElement("option");
+                option.value = `${i}-${maxRange}`;
+                option.textContent = `${i} - ${maxRange}`;
+                selectRange.appendChild(option);
+            }
+
+            loadImages(); // Muat ulang gambar setelah rentang diperbarui
         }
 
         function loadImages() {
@@ -63,9 +85,14 @@
             }
         }
 
+        // Event listener untuk perubahan folder
+        document.getElementById("folderSelect").addEventListener("change", fetchFileRange);
+        document.getElementById("rangeSelect").addEventListener("change", loadImages);
+
         // Jalankan saat halaman dimuat
         fetchFolders();
     </script>
+
 </body>
 
 </html>
