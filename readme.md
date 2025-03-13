@@ -35,7 +35,7 @@ public/
 Pastikan kamu sudah menginstall **Node.js**, lalu jalankan:
 
 ```sh
-npm install```
+npm install```sh
 
 2️⃣ Menjalankan Server
 Jalankan dengan:
