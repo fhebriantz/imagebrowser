@@ -67,25 +67,55 @@
 
             loadImages(); // Muat ulang gambar setelah rentang diperbarui
         }
+    </script>
 
-        function loadImages() {
+    <script>
+        async function checkImageExists(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                return response.ok ? url : null; // Jika gambar ada, kembalikan URL; jika tidak, kembalikan null
+            } catch (error) {
+                return null;
+            }
+        }
+
+        async function loadImages() {
             const folder = document.getElementById("folderSelect").value;
             const range = document.getElementById("rangeSelect").value.split('-');
             const min = parseInt(range[0]);
             const max = parseInt(range[1]);
             const container = document.getElementById("imageContainer");
-            container.innerHTML = "";
+            container.innerHTML = "Memuat..."; // Menampilkan loading sementara
 
+            // Buat daftar semua URL gambar yang akan diperiksa
+            let imageUrls = [];
             for (let i = min; i <= max; i++) {
+                imageUrls.push(`/images/${folder}/image_${i}_0.jpg`);
+            }
+
+            // Cek semua gambar secara paralel
+            let imageChecks = await Promise.all(imageUrls.map(checkImageExists));
+
+            // Hanya ambil gambar yang ada (tidak null)
+            let availableImages = imageChecks.filter(url => url !== null);
+
+            // Kosongkan container dan tampilkan gambar yang tersedia
+            container.innerHTML = "";
+            availableImages.forEach(url => {
                 let img = document.createElement("img");
-                img.src = `/images/${folder}/image_${i}_0.jpg`;
-                img.alt = `image_${i}_0`;
+                img.src = url;
+                img.alt = url.split("/").pop();
                 img.classList.add("img-thumbnail");
                 container.appendChild(img);
+            });
+
+            // Jika tidak ada gambar yang ditemukan
+            if (availableImages.length === 0) {
+                container.innerHTML = "<p>Tidak ada gambar yang tersedia dalam rentang ini.</p>";
             }
         }
 
-        // Event listener untuk perubahan folder
+        // Event listener untuk perubahan folder dan filter
         document.getElementById("folderSelect").addEventListener("change", fetchFileRange);
         document.getElementById("rangeSelect").addEventListener("change", loadImages);
 
