@@ -1,0 +1,8 @@
+# Abaikan folder images
+public/images/
+
+# Abaikan node_modules
+node_modules/
+
+# Abaikan package-lock.json (tidak disarankan)
+package-lock.json
